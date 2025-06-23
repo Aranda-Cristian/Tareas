@@ -151,3 +151,14 @@ ion-icon {
 .tarea{ /* Para que el texto no sobrepase el limite del contenedor*/
     overflow: hidden;
 }
+@media (max-width: 768px) {
+  .App{
+    display:flex;
+    flex-direction: column;
+    justify-content:center;
+    align-items: center;
+  }
+  .Tarjeta{
+    width: 100%;
+  }
+}
