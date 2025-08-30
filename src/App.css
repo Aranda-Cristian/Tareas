@@ -1,23 +1,20 @@
-#root {
-  display: flex;
-  flex:1;
-}
+
 body{
   background-color: lightgrey;
     font-family:'Poppins', sans-serif;
     font-weight: 400;
     font-style: normal;
-}
-.App{
-  display: flex;
-  flex-direction: row;
-  flex: 1;
-}
+
+  }
+
+
 .Panel{
   margin-top: 30px;
   display: flex;
-  flex: 1;
   flex-direction: column;
+  
+  
+  justify-content: center;
   align-items: center;
 }
 .Formulario{
@@ -43,6 +40,23 @@ body{
     border-radius: 10px;
     margin: 10px;
     width: 300px;
+}
+.opciones{
+  display: flex;
+  
+  align-items: center;
+  justify-content: center;
+  
+}
+.opciones a{
+  margin: 10px;
+    color: white;
+    background-color: #0b3a87;
+    padding: 10px 50px;
+    border:#333 solid 2px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
 }
 #filtro{
     font-size: 15px;
@@ -83,11 +97,12 @@ select{
     cursor: pointer;
 }
 .Listado{
-  display: flex;
-  flex-direction: column;
-  flex:1;
+  display: grid;
+  
+  grid-template-columns: 50% 50%;
+  
   width: 100%;
-  align-items: center;
+  
 }
 .arjeta{
   display: flex;
@@ -160,5 +175,9 @@ ion-icon {
   }
   .Tarjeta{
     width: 100%;
+  }
+  .Listado{
+    grid-template-columns: 100%;
+    width: 90%;
   }
 }
