@@ -5,6 +5,7 @@ export default function Formulario({ guardarTarea }) {
     const [datos, setDato] = useTarea();
     const mostrarValores = (e) => {
         e.preventDefault();
+        wdadwdwdadwadwdadw
         guardarTarea(datos);
 
     }
