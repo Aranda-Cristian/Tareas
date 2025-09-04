@@ -41,10 +41,10 @@ export default function Listado({ tareas,cambiarEstado, eliminarTarea, filtrarCa
             <div className="Listado">
                 {tareas.map((tarea, index) =>
                     <Tarjeta
-                        key={tarea.id}
-                        cambio={(nuevoEstado) => cambiarEstado(nuevoEstado, tarea.id)}
-                        eliminar={() => eliminarTarea(tarea.id)}
-                        nombres={tarea.nombres}
+                        key={tarea._id}
+                        cambio={(nuevoEstado) => cambiarEstado(nuevoEstado, tarea._id)}
+                        eliminar={() => eliminarTarea(tarea._id)}
+                        nombres={tarea.descripcion}
                         prioridad={tarea.prioridad}
                         categoria={tarea.categoria}
                         estado={tarea.estado}

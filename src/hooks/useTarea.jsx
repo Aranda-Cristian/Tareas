@@ -1,14 +1,14 @@
 import { useState } from 'react';
 export default function useTarea() {
-    const [nombres, setNombre] = useState('');
+    const [descripcion, setDescripcion] = useState('');
     const [prioridad, setPrioridad] = useState('');
     const [categoria, setCategorias] = useState('');
     const [estado, setEstado] = useState('Pendiente');
 
     const setDato = (campo, valor) => {
         switch (campo) {
-            case 'nombres':
-                setNombre(valor);
+            case 'descripcion':
+                setDescripcion(valor);
                 break;
             case 'prioridad':
                 setPrioridad(valor);
@@ -24,6 +24,6 @@ export default function useTarea() {
 
         }
     }
-    return [{nombres, prioridad, categoria, estado}, setDato]
+    return [{descripcion, prioridad, categoria, estado}, setDato]
 
 }
