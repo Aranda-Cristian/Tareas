@@ -7,17 +7,17 @@ import axios from "axios";
 
 
 function App() {
-  //const [id, setId] = useState(0);
+  const [filtro, setFiltros] = useState([]);
   const [tareas, setTareas] = useState([]);
   const [todasLasTareas, setTodasLasTareas] = useState([]);
-  //const [filtros, setFiltros] = useState("todos");
+  
 
   const ordenPrioridad = {
     alta: 1,
     media: 2,
     baja: 3
   };
-  const guardarTarea = async (tarea) => {
+  const guardarTarea = (tarea) => {
     
     const url = "https://api-tareas.ctpoba.edu.ar/v1/tareas/"
     const config = {
@@ -41,7 +41,7 @@ function App() {
     }
     axios.get(url, config)
       .then((resp) => {
-        console.log(resp.data.tareas);
+        
         resp.data.tareas.sort((a, b) => ordenPrioridad[a.prioridad] - ordenPrioridad[b.prioridad]);
         setTareas(resp.data.tareas)
         setTodasLasTareas(resp.data.tareas)
@@ -53,7 +53,7 @@ function App() {
       })
   }
 
-  const eliminarTarea = async (_id) => {
+  const eliminarTarea = (_id) => {
     const url = `https://api-tareas.ctpoba.edu.ar/v1/tareas/${_id}`;
     const config = {
       headers: { authorization: '47268231' }
@@ -69,31 +69,27 @@ function App() {
         console.log(error)
       })
   }
-  const cambiarEstado = async (nuevoEstado, _id) => {
-    console.log(_id, nuevoEstado);
+  const cambiarEstado = (nuevoEstado, _id) => {
+  
     try {
-      console.log(tareas);
+     
       const tareaActual = tareas.find(tarea => String(tarea._id) === String(_id));
-      console.log(tareaActual);
+      
       const tareaActualizada = {
         ...tareaActual,
         estado: nuevoEstado
       };
-      console.log(tareaActualizada);
+      
 
       actualizarTarea(_id, tareaActualizada);
 
-      setTareas(prevTareas =>
-        prevTareas.map(tarea =>
-          tarea._id === _id ? tareaActualizada : tarea
-        )
-      );
+      
     } catch (error) {
       console.error('Error al actualizar tarea:', error);
     }
   };
 
-  const actualizarTarea = async (_id, tarea) => {
+  const actualizarTarea = (_id, tarea) => {
     const url = `https://api-tareas.ctpoba.edu.ar/v1/tareas/${_id}`;
     const config = {
       headers: { authorization: '47268231' }
