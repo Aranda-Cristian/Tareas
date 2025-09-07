@@ -10,7 +10,6 @@ export default function Formulario({ guardarTarea }) {
         try {
             await guardarTarea(datos);
             
-            alert('Tarea agregada exitosamente');
         } catch (error) {
             alert('Error al agregar la tarea. Intenta nuevamente.');
         } finally {
@@ -23,7 +22,7 @@ return (
     <div className='Panel'>
         <form className="Formulario">
             <p class="titulo">Crear Tarea</p>
-            <input id="titulo" type="text" placeholder="Tarea" value={datos.descripcion} onChange={(e) => setDato('descripcion', e.target.value)} />
+            <input id="titulo" type="text" placeholder="Tarea" value={datos.nombre} onChange={(e) => setDato('nombre', e.target.value)} />
             <div class="opciones">
                 <select id="categoria" value={datos.categoria} onChange={(e) => setDato('categoria', e.target.value)}>
                     <option value="" disabled selected>Categoria</option>

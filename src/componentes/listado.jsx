@@ -44,7 +44,7 @@ export default function Listado({ tareas,cambiarEstado, eliminarTarea, filtrarCa
                         key={tarea._id}
                         cambio={(nuevoEstado) => cambiarEstado(nuevoEstado, tarea._id)}
                         eliminar={() => eliminarTarea(tarea._id)}
-                        nombres={tarea.descripcion}
+                        nombres={tarea.nombre}
                         prioridad={tarea.prioridad}
                         categoria={tarea.categoria}
                         estado={tarea.estado}
