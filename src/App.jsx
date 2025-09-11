@@ -1,16 +1,16 @@
 import { useEffect, useState } from 'react'
 import { Route, Router, Link, Switch } from 'wouter'
-import Formulario from './componentes/formulario'
-import Listado from './componentes/listado'
+import Formulario from './componentes/Formulario'
+import Listado from './componentes/Listado'
 import './App.css'
 import axios from "axios";
 
 
 function App() {
-  const [filtro, setFiltros] = useState([]);
+  const [filtro, setFiltros] = useState('todos');
   const [tareas, setTareas] = useState([]);
   const [todasLasTareas, setTodasLasTareas] = useState([]);
-  
+
 
   const ordenPrioridad = {
     alta: 1,
@@ -18,7 +18,7 @@ function App() {
     baja: 3
   };
   const guardarTarea = (tarea) => {
-    
+
     const url = "https://api-tareas.ctpoba.edu.ar/v1/tareas/"
     const config = {
       headers: { authorization: "47268231" }
@@ -34,14 +34,20 @@ function App() {
 
   };
 
-  const obtenerTareas = () => {
+  const obtenerTareas = async () => {
     const url = "https://api-tareas.ctpoba.edu.ar/v1/tareas/";
     const config = {
-      headers: { authorization: '47268231' }
+      headers: {
+        authorization: '47268231',
+      },
     }
-    axios.get(url, config)
+    
+
+
+    await axios.get (url, config)
       .then((resp) => {
-        
+        console.log(resp.data.tareas);
+
         resp.data.tareas.sort((a, b) => ordenPrioridad[a.prioridad] - ordenPrioridad[b.prioridad]);
         setTareas(resp.data.tareas)
         setTodasLasTareas(resp.data.tareas)
@@ -63,34 +69,36 @@ function App() {
         alert("Tarea eliminada con exito");
 
         obtenerTareas();
-        
+
       })
       .catch((error) => {
         console.log(error)
       })
   }
-  const cambiarEstado = (nuevoEstado, _id) => {
-  
+  //corregir:
+  //cambiar estado
+  //filtro 
+  const cambiarEstado = (nuevoEstado, tarea) => {
+
     try {
-     
-      const tareaActual = tareas.find(tarea => String(tarea._id) === String(_id));
-      
+
+
       const tareaActualizada = {
-        ...tareaActual,
+        ...tarea,
         estado: nuevoEstado
       };
-      
 
-      actualizarTarea(_id, tareaActualizada);
 
-      
+      actualizarTarea(tareaActualizada);
+
+
     } catch (error) {
       console.error('Error al actualizar tarea:', error);
     }
   };
 
-  const actualizarTarea = (_id, tarea) => {
-    const url = `https://api-tareas.ctpoba.edu.ar/v1/tareas/${_id}`;
+  const actualizarTarea = (tarea) => {
+    const url = `https://api-tareas.ctpoba.edu.ar/v1/tareas/${tarea._id}`;
     const config = {
       headers: { authorization: '47268231' }
     }
@@ -117,12 +125,15 @@ function App() {
   }, []);
 
   const filtrarCategoria = (categoria) => {
-    setFiltros(categoria);
+    
+   // const tareasFiltradas = todasLasTareas.filter((t) => t.categoria === categoria);
+    
+    //obtenerTareas();
     if (categoria === "todos") {
-      setTareas(todasLasTareas);
-      return;
+     setTareas(todasLasTareas);
+    return;
     }
-    setTareas(todasLasTareas.filter((t) => t.categoria === categoria));
+     setTareas(todasLasTareas.filter((t) => t.categoria === categoria));
   };
 
 
@@ -130,15 +141,12 @@ function App() {
 
   return (
     <Router>
-
       <div className="App">
         <nav className='opciones' style={{ marginBottom: "20px" }}>
-          <Link href="/listado">Listado</Link>
-          <Link href="/">Agregar</Link>
+          <Link to="/listado">Listado</Link>
+          <Link to="/">Agregar</Link>
         </nav>
         <Switch>
-
-
 
           <Route path="/">
             <Formulario guardarTarea={guardarTarea} />
@@ -153,6 +161,7 @@ function App() {
               eliminarTarea={eliminarTarea}
             />
           </Route>
+
         </Switch>
       </div>
     </Router>

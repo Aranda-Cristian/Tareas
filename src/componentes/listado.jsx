@@ -42,7 +42,7 @@ export default function Listado({ tareas,cambiarEstado, eliminarTarea, filtrarCa
                 {tareas.map((tarea, index) =>
                     <Tarjeta
                         key={tarea._id}
-                        cambio={(nuevoEstado) => cambiarEstado(nuevoEstado, tarea._id)}
+                        cambio={(nuevoEstado) => cambiarEstado(nuevoEstado, tarea)}
                         eliminar={() => eliminarTarea(tarea._id)}
                         nombres={tarea.nombre}
                         prioridad={tarea.prioridad}
