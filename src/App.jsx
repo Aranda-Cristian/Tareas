@@ -34,17 +34,25 @@ function App() {
 
   };
 
-  const obtenerTareas = async () => {
-    const url = "https://api-tareas.ctpoba.edu.ar/v1/tareas/";
+  const obtenerTareas = () => {
+    let url;
+    if (filtro === 'todos') {
+      url = `https://api-tareas.ctpoba.edu.ar/v1/tareas/`;
+    } else {
+      url = `https://api-tareas.ctpoba.edu.ar/v1/tareas/?busqueda=${filtro}`;
+    }
+
+
     const config = {
       headers: {
-        authorization: '47268231',
-      },
+        authorization: '47268231'
+      }
     }
-    
 
 
-    await axios.get (url, config)
+
+
+    axios.get(url, config)
       .then((resp) => {
         console.log(resp.data.tareas);
 
@@ -122,18 +130,10 @@ function App() {
   useEffect(() => {
     obtenerTareas();
 
-  }, []);
+  }, [filtro]);
 
   const filtrarCategoria = (categoria) => {
-    
-   // const tareasFiltradas = todasLasTareas.filter((t) => t.categoria === categoria);
-    
-    //obtenerTareas();
-    if (categoria === "todos") {
-     setTareas(todasLasTareas);
-    return;
-    }
-     setTareas(todasLasTareas.filter((t) => t.categoria === categoria));
+    setFiltros(categoria);
   };
 
 
