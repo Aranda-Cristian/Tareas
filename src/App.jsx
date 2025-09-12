@@ -35,20 +35,17 @@ function App() {
   };
 
   const obtenerTareas = () => {
-    let url;
-    if (filtro === 'todos') {
-      url = `https://api-tareas.ctpoba.edu.ar/v1/tareas/`;
-    } else {
-      url = `https://api-tareas.ctpoba.edu.ar/v1/tareas/?busqueda=${filtro}`;
-    }
-
-
+    const url = `https://api-tareas.ctpoba.edu.ar/v1/tareas/`;
     const config = {
       headers: {
         authorization: '47268231'
-      }
-    }
+      },
+      params: {}
+    };
 
+    if (filtro !== 'todos') {
+      config.params.busqueda = filtro;
+    }
 
 
 
